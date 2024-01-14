@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+         <record id="menu_servis" model="website.menu">
+           <field name="name">Servis</field>
+           <field name="url">/servis</field>
+           <field name="parent_id" ref="website.main_menu"/>
+           <field name="sequence">55</field>
+       </record>
+
+        <function model="ir.model.fields" name="formbuilder_whitelist">
+            <value>direct.direct</value>
+            <value eval="[
+                'name',    'musteri' , 'adres', 'mail', 'telefon'
+            ]"/>
+        </function>
+
+</odoo>

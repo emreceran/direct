@@ -40,7 +40,7 @@ class direct(models.Model):
 
     img = fields.Char()
     kargo_takip_no = fields.Char()
-    talep_tarih =  fields.Date(string='Your string', default=datetime.today())
+    talep_tarih =  fields.Date(string='Talep Tarihi', default=datetime.today())
     ulasma_tarih = fields.Date()
     kargo_verilme_tarih = fields.Date()
 
