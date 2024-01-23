@@ -7,21 +7,20 @@
             <field name="model">direct.direct</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name"/>
+                    <field name="name" string="Talep Kodu"/>
                     <field name="musteri"/>
                     <field name="adres"/>
                     <field name="mail"/>
-                    <field name="telefon"/>
-                    <field name="servis_durumu"/>
-                    <field name="img"/>
-                    <field name="kargo_takip_no"/>
-                    <field name="talep_tarih"/>
-                    <field name="ulasma_tarih"/>
-                    <field name="kargo_verilme_tarih"/>
+                    <field name="telefon" optional="hide"/>
+                    <field name="product_id"/>
+
+                    <field name="talep_tarih" optional="hide"/>
+                    <field name="ulasma_tarih" optional="hide"/>
+                    <field name="kargo_verilme_tarih" optional="hide"/>
                     <field name="mail_durumu"/>
                     <field name="servis_sebebi"/>
-                    <field name="kargo_verilme_tarih"/>
-                    <field name="product_id"/>
+                    <field name="kargo_verilme_tarih" optional="hide"/>
+
                     <field name="yapilan_islem"/>
 
                 </tree>
