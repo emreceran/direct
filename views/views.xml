@@ -6,7 +6,7 @@
             <field name="name">Teknik Servis Talepleri</field>
             <field name="model">direct.direct</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree default_order="name desc">
                     <field name="name" string="Talep Kodu"/>
                     <field name="musteri"/>
                     <field name="adres"/>
