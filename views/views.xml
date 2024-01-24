@@ -8,8 +8,7 @@
             <field name="arch" type="xml">
                 <tree default_order="name desc">
                     <field name="name" string="Talep Kodu"/>
-                    <field name="musteri_isim"/>
-                    <field name="musteri_soyisim"/>
+                    <field name="musteri"/>
                     <field name="adres"/>
                     <field name="mail"/>
                     <field name="telefon" optional="hide"/>
@@ -55,8 +54,7 @@
                             <group name="servis1">
 
 
-                                <field name="musteri_isim"/>
-                                <field name="musteri_soyisim"/>
+                                <field name="musteri"/>
                                 <field name="adres"/>
                                 <field name="mail"/>
                                 <field name="telefon"/>

@@ -19,7 +19,7 @@ class direct(models.Model):
 
 
     name = fields.Char('NIU', readonly=True, select=True, copy=False, default='New')
-    musteri_isim = fields.Char()
+    musteri = fields.Char()
     musteri_soyisim = fields.Char()
     adres = fields.Char()
     mail = fields.Char()
