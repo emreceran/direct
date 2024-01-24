@@ -45,6 +45,8 @@
                     </header>
 
                     <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <field name="active" invisible="1"/>
 
                         <div class="oe_title">
                             <h1>
@@ -90,13 +92,14 @@
             <field name="priority" eval="15"/>
             <field name="arch" type="xml">
                 <search string="Search Direct">
+
                     <field name="name" string="Ürün"
                            filter_domain="['|', '|', ('name', 'ilike', self),  ('musteri', 'ilike', self), ('product_id', 'ilike', self)]"/>
 
                     <filter string="Mail Gönderilmeyenler " domain="[('mail_durumu', '=', 'no_mail')]" name="mail_durum_gönderilmedi_filter"/>
                     <filter string="Ürün Geld Maili Gönderilenler  " domain="[('mail_durumu', '=', 'ulasti_mail')]" name="mail_urun_geldi_filter"/>
                     <filter string="Ürün Kargoya Verildi Maili Gönderilenler " domain="[('mail_durumu', '=', 'kargo_mail')]" name="mail_urun_gitti_filter"/>
-
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
                     <group expand="0" string="Group By">
                         <filter string="Talep Tarihi" name="taleptarihi" domain="[]" context="{'group_by': 'talep_tarih'}"/>
                         <filter name="Gelme TArihi" string="Customer" domain="[]" context="{'group_by': 'ulasma_tarih'}"/>

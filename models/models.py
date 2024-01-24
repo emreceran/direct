@@ -24,6 +24,7 @@ class direct(models.Model):
     adres = fields.Char()
     mail = fields.Char()
     telefon = fields.Char()
+    active = fields.Boolean(default=True)
 
     servis_durumu = fields.Selection(
         selection=[
