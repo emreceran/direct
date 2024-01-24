@@ -9,6 +9,7 @@
                 <tree default_order="name desc">
                     <field name="name" string="Talep Kodu"/>
                     <field name="musteri"/>
+                    <field name="musteri_soyisim"/>
                     <field name="adres"/>
                     <field name="mail"/>
                     <field name="telefon" optional="hide"/>
@@ -55,6 +56,7 @@
 
 
                                 <field name="musteri"/>
+                                <field name="musteri_soyisim"/>
                                 <field name="adres"/>
                                 <field name="mail"/>
                                 <field name="telefon"/>
