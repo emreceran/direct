@@ -19,7 +19,8 @@ class direct(models.Model):
 
 
     name = fields.Char('NIU', readonly=True, select=True, copy=False, default='New')
-    musteri = fields.Char()
+    musteri_isim = fields.Char()
+    musteri_soyisim = fields.Char()
     adres = fields.Char()
     mail = fields.Char()
     telefon = fields.Char()
@@ -40,7 +41,7 @@ class direct(models.Model):
 
     img = fields.Char()
     kargo_takip_no = fields.Char()
-    talep_tarih =  fields.Date(string='Talep Tarihi', default=datetime.today())
+    talep_tarih =  fields.Date(string='Talep Tarihi', default=lambda self: fields.datetime.now())
     ulasma_tarih = fields.Date()
     kargo_verilme_tarih = fields.Date()
 
@@ -53,8 +54,8 @@ class direct(models.Model):
 
         ],
         string="Mail Durumu",
-         # copy=False, index=True,
-        readonly=True, copy=False, index=True,
+         copy=False, index=True,
+        # readonly=True, copy=False, index=True,
         tracking=3,
         default='no_mail')
 

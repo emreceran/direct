@@ -10,7 +10,7 @@
         <function model="ir.model.fields" name="formbuilder_whitelist">
             <value>direct.direct</value>
             <value eval="[
-                'musteri' , 'adres', 'mail', 'telefon'
+                'musteri_isim' , 'adres', 'mail', 'telefon'
             ]"/>
         </function>
 
