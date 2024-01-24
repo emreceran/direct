@@ -18,7 +18,8 @@ class direct(models.Model):
     _description = 'direct.direct'
 
 
-    name = fields.Char('NIU', readonly=True, select=True, copy=False, default='New')
+    name = fields.Char('Servis NUmarası',  select=True, copy=False, default='Eski')
+    # name = fields.Char('NIU', readonly=True, select=True, copy=False, default='Eski')
     musteri = fields.Char()
     musteri_soyisim = fields.Char()
     adres = fields.Char()
@@ -87,17 +88,17 @@ class direct(models.Model):
         for record in self:
             record.value2 = float(record.value) / 100
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        for vals in vals_list:
-            if 'company_id' in vals:
-                self = self.with_company(vals['company_id'])
-            if vals.get('name', ("New")) == ("New"):
-                seq_date = fields.Datetime.context_timestamp(
-                    self, fields.Datetime.to_datetime(vals['date_order'])
-                ) if 'date_order' in vals else None
-                vals['name'] = self.env['ir.sequence'].next_by_code(
-                    'direct.direct', sequence_date=seq_date) or ("New")
-
-        return super().create(vals_list)
+    # @api.model_create_multi
+    # def create(self, vals_list):
+    #     for vals in vals_list:
+    #         if 'company_id' in vals:
+    #             self = self.with_company(vals['company_id'])
+    #         if vals.get('name', ("New")) == ("New"):
+    #             seq_date = fields.Datetime.context_timestamp(
+    #                 self, fields.Datetime.to_datetime(vals['date_order'])
+    #             ) if 'date_order' in vals else None
+    #             vals['name'] = self.env['ir.sequence'].next_by_code(
+    #                 'direct.direct', sequence_date=seq_date) or ("New")
+    #
+    #     return super().create(vals_list)
 
