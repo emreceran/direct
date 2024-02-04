@@ -1,177 +1,188 @@
 <odoo>
-    <data>
-        <!-- explicit list view definition -->
 
-        <record model="ir.ui.view" id="direct.list">
-            <field name="name">Teknik Servis Talepleri</field>
-            <field name="model">direct.direct</field>
-            <field name="arch" type="xml">
-                <tree default_order="name desc">
-                    <field name="name" string="Talep Kodu"/>
-                    <field name="musteri"/>
-                    <field name="musteri_soyisim"/>
-                    <field name="adres"/>
-                    <field name="mail"/>
-                    <field name="telefon" optional="hide"/>
-                    <field name="product_id"/>
+    <!-- explicit list view definition -->
 
-                    <field name="talep_tarih" optional="hide"/>
-                    <field name="ulasma_tarih" optional="hide"/>
-                    <field name="kargo_verilme_tarih" optional="hide"/>
-                    <field name="mail_durumu"/>
-                    <field name="servis_sebebi"/>
-                    <field name="kargo_verilme_tarih" optional="hide"/>
+    <record model="ir.ui.view" id="direct.list">
+        <field name="name">Teknik Servis Talepleri</field>
+        <field name="model">direct.direct</field>
+        <field name="arch" type="xml">
+            <tree default_order="name desc">
+                <field name="name" string="Talep Kodu"/>
+                <field name="musteri" optional="hide"/>
+                <field name="musteri_isim_soyisim"/>
+                <field name="adres"/>
+                <field name="mail"/>
+                <field name="telefon"/>
+                <field name="product_id"/>
 
-                    <field name="yapilan_islem"/>
+                <field name="talep_tarih" optional="hide"/>
+                <field name="ulasma_tarih" optional="hide"/>
+                <field name="kargo_verilme_tarih" optional="hide"/>
+                <field name="mail_durumu"/>
+                <field name="servis_sebebi"/>
+                <field name="kargo_verilme_tarih" optional="hide"/>
 
-                </tree>
-            </field>
-        </record>
+                <field name="yapilan_islem"/>
 
-
-        <record id="direct_servis__form" model="ir.ui.view">
-            <field name="name">direct.direct.form</field>
-            <field name="model">direct.direct</field>
-            <field name="arch" type="xml">
-                <form string="Servis " class="o_sale_order">
-                    <header>
-
-                        <field name="mail_durumu" widget="statusbar"  />
-                        <div style="backgroun-color:black">
-                            <field name="servis_durumu" widget="statusbar"  />
-
-                        </div>
-
-                    </header>
-
-                    <sheet>
-                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
-                        <field name="active" invisible="1"/>
-
-                        <div class="oe_title">
-                            <h1>
-                                <field name="name" />
-                            </h1>
-                        </div>
-                        <group>
-                            <group name="servis1">
+            </tree>
+        </field>
+    </record>
 
 
-                                <field name="musteri"/>
-                                <field name="musteri_soyisim"/>
-                                <field name="adres"/>
-                                <field name="mail"/>
-                                <field name="telefon"/>
-                                <field name="servis_sebebi"/>
-                                <field name="kargo_takip_no"/>
+    <record id="direct_servis__form" model="ir.ui.view">
+        <field name="name">direct.direct.form</field>
+        <field name="model">direct.direct</field>
+        <field name="arch" type="xml">
+            <form string="Servis " class="o_sale_order">
+                <header>
+
+                    <field name="mail_durumu" widget="statusbar"  />
+                    <div style="backgroun-color:black">
+                        <field name="servis_durumu" widget="statusbar"  />
+
+                    </div>
+
+                </header>
+
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                    <field name="active" invisible="1"/>
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="servis1">
 
 
-                            </group>
-                            <group name="servis2">
-
-                                <field name="talep_tarih"/>
-                                <field name="ulasma_tarih"/>
-                                <field name="kargo_verilme_tarih"/>
-                                <field name="kargo_verilme_tarih"/>
-                                <field name="product_id"/>
-                                <field name="yapilan_islem"/>
+                            <field name="musteri"/>
+                            <field name="musteri_soyisim"/>
+                            <field name="mail"/>
+                            <field name="telefon"/>
+                            <field name="product_id"/>
 
 
-                            </group>
+
+                        </group>
+                        <group name="servis2">
+
+                            <field name="talep_tarih"/>
+                            <field name="ulasma_tarih"/>
+                            <field name="kargo_verilme_tarih"/>
+                            <field name="kargo_takip_no"/>
+                            <field name="yapilan_islem"/>
+
+
                         </group>
 
-                    </sheet>
-
-                </form>
-            </field>
-        </record>
-
-        <record id="view_direct_filter" model="ir.ui.view">
-            <field name="name">direct.direct.list.select</field>
-            <field name="model">direct.direct</field>
-            <field name="priority" eval="15"/>
-            <field name="arch" type="xml">
-                <search string="Search Direct">
-
-                    <field name="name" string="Ürün"
-                           filter_domain="['|', '|', ('name', 'ilike', self),  ('musteri', 'ilike', self), ('product_id', 'ilike', self)]"/>
-
-                    <filter string="Mail Gönderilmeyenler " domain="[('mail_durumu', '=', 'no_mail')]" name="mail_durum_gönderilmedi_filter"/>
-                    <filter string="Ürün Geld Maili Gönderilenler  " domain="[('mail_durumu', '=', 'ulasti_mail')]" name="mail_urun_geldi_filter"/>
-                    <filter string="Ürün Kargoya Verildi Maili Gönderilenler " domain="[('mail_durumu', '=', 'kargo_mail')]" name="mail_urun_gitti_filter"/>
-                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
-                    <group expand="0" string="Group By">
-                        <filter string="Talep Tarihi" name="taleptarihi" domain="[]" context="{'group_by': 'talep_tarih'}"/>
-                        <filter name="Gelme TArihi" string="Customer" domain="[]" context="{'group_by': 'ulasma_tarih'}"/>
-                        <filter string="Gönderilme Tarihi" name="order_month" domain="[]" context="{'group_by': 'kargo_verilme_tarih'}"/>
-                        <filter string="Mail Durumu" name="mail_durum" domain="[]" context="{'group_by': 'mail_durumu'}"/>
                     </group>
+                    <div class="oe_title">
 
-                </search>
-            </field>
-        </record>
+                        <label for="adres" string="Adres" />
+                        <field name="adres" string="Adres" />
+                        <label for="servis_sebebi" string="Servis Sebebi" />
+                        <field name="servis_sebebi"/>
 
-
-        <!-- actions opening views on models -->
-
-
-        <record model="ir.actions.act_window" id="direct.action_window1">
-            <field name="name">Teknik Servis </field>
-            <field name="res_model">direct.direct</field>
-            <field name="view_mode">tree,form</field>
-            <field name="context">{'search_default_mail_durum_gönderilmedi_filter': 1}</field>
-        </record>
-
-        <record model="ir.actions.act_window" id="direct.action_window2">
-            <field name="name">Teknik Servis </field>
-            <field name="res_model">direct.direct</field>
-            <field name="view_mode">tree,form</field>
-            <field name="context">{'search_default_mail_urun_geldi_filter': 1}</field>
-        </record>
-
-        <record model="ir.actions.act_window" id="direct.action_window3">
-            <field name="name">Teknik Servis </field>
-            <field name="res_model">direct.direct</field>
-            <field name="view_mode">tree,form</field>
-            <field name="context">{'search_default_mail_urun_gitti_filter': 1}</field>
-        </record>
-
-        <!-- server action to the one above -->
-
-        <record model="ir.actions.server" id="direct.action_server">
-            <field name="name">direct </field>
-            <field name="model_id" ref="model_direct_direct"/>
-            <field name="state">code</field>
-            <field name="code">
-                action = {
-                "type": "ir.actions.act_window",
-                "view_mode": "tree,form",
-                "res_model": model._name,
-                }
-            </field>
-        </record>
+                    </div>
 
 
+                </sheet>
 
-        <!-- Top menu item -->
+            </form>
+        </field>
+    </record>
 
-        <menuitem name="direct"
-                  id="direct.menu_root"
-                  web_icon="direct,static/description/icon.png"/>/>
+    <record id="view_direct_filter" model="ir.ui.view">
+        <field name="name">direct.direct.list.select</field>
+        <field name="model">direct.direct</field>
+        <field name="priority" eval="15"/>
+        <field name="arch" type="xml">
+            <search string="Search Direct">
 
-        <!-- menu categories -->
-        <menuitem name="Servisler" id="direct.menu_1" parent="direct.menu_root"/>
-        <!--    <menuitem name="Menu 2" id="direct.menu_2" parent="direct.menu_root"/>-->
+                <field name="name" string="Ürün"
+                       filter_domain="['|', '|', '|', '|', '|', ('mail','ilike', self ),('adres','ilike', self ), ('musteri_isim_soyisim','ilike', self ), ('name', 'ilike', self),  ('musteri', 'ilike', self), ('product_id', 'ilike', self)]"/>
 
-        <!-- actions -->
+                <field name="name" string="İsim Soyisim"
+                       filter_domain="[('musteri', 'ilike', self) ,  ('musteri_soyisim','ilike', self )  ]"/>
 
-        <menuitem name="Mail Gönderilmeyenler" id="direct.menu_1_list" parent="direct.menu_1" action="direct.action_window1"/>
-        <menuitem name="Ürün Geldi Maili Gönderilenler" id="direct.menu_2_list" parent="direct.menu_1" action="direct.action_window2"/>
-        <menuitem name="Kargoya Verildi Maili Gönderilenler" id="direct.menu_3_list" parent="direct.menu_1" action="direct.action_window3"/>
-        <!--    <menuitem name="Server to list" id="direct" parent="direct.menu_2"-->
-        <!--              action="direct.action_server"/>-->
+                <filter string="Mail Gönderilmeyenler " domain="[('mail_durumu', '=', 'no_mail')]" name="mail_durum_gönderilmedi_filter"/>
+                <filter string="Ürün Geld Maili Gönderilenler  " domain="[('mail_durumu', '=', 'ulasti_mail')]" name="mail_urun_geldi_filter"/>
+                <filter string="Ürün Kargoya Verildi Maili Gönderilenler " domain="[('mail_durumu', '=', 'kargo_mail')]" name="mail_urun_gitti_filter"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Talep Tarihi" name="taleptarihi" domain="[]" context="{'group_by': 'talep_tarih'}"/>
+                    <filter name="Gelme TArihi" string="Customer" domain="[]" context="{'group_by': 'ulasma_tarih'}"/>
+                    <filter string="Gönderilme Tarihi" name="order_month" domain="[]" context="{'group_by': 'kargo_verilme_tarih'}"/>
+                    <filter string="Mail Durumu" name="mail_durum" domain="[]" context="{'group_by': 'mail_durumu'}"/>
+                </group>
 
-    </data>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+
+    <record model="ir.actions.act_window" id="direct.action_window1">
+        <field name="name">Teknik Servis </field>
+        <field name="res_model">direct.direct</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_mail_durum_gönderilmedi_filter': 1}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="direct.action_window2">
+        <field name="name">Teknik Servis </field>
+        <field name="res_model">direct.direct</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_mail_urun_geldi_filter': 1}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="direct.action_window3">
+        <field name="name">Teknik Servis </field>
+        <field name="res_model">direct.direct</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_mail_urun_gitti_filter': 1}</field>
+    </record>
+
+    <!-- server action to the one above -->
+
+    <record model="ir.actions.server" id="direct.action_server">
+        <field name="name">direct </field>
+        <field name="model_id" ref="model_direct_direct"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = {
+            "type": "ir.actions.act_window",
+            "view_mode": "tree,form",
+            "res_model": model._name,
+            }
+        </field>
+    </record>
+
+
+
+    <!-- Top menu item -->
+
+    <menuitem name="direct"
+              id="direct.menu_root"
+              web_icon="direct,static/description/icon.png"/>/>
+
+    <!-- menu categories -->
+    <menuitem name="Servisler" id="direct.menu_1" parent="direct.menu_root"/>
+    <!--    <menuitem name="Menu 2" id="direct.menu_2" parent="direct.menu_root"/>-->
+
+    <!-- actions -->
+
+    <menuitem name="Mail Gönderilmeyenler" id="direct.menu_1_list" parent="direct.menu_1" action="direct.action_window1"/>
+    <menuitem name="Ürün Geldi Maili Gönderilenler" id="direct.menu_2_list" parent="direct.menu_1" action="direct.action_window2"/>
+    <menuitem name="Kargoya Verildi Maili Gönderilenler" id="direct.menu_3_list" parent="direct.menu_1" action="direct.action_window3"/>
+    <!--    <menuitem name="Server to list" id="direct" parent="direct.menu_2"-->
+    <!--              action="direct.action_server"/>-->
+
+
 </odoo>
 
 

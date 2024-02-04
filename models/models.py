@@ -21,6 +21,7 @@ class direct(models.Model):
     name = fields.Char('NIU', readonly=True, select=True, copy=False, default='New')
     musteri = fields.Char()
     musteri_soyisim = fields.Char()
+    musteri_isim_soyisim = fields.Char(compute="_isim_soyisim", store=True)
     adres = fields.Char()
     mail = fields.Char()
     telefon = fields.Char()
@@ -55,7 +56,7 @@ class direct(models.Model):
 
         ],
         string="Mail Durumu",
-         copy=False, index=True,
+        copy=False, index=True,
         # readonly=True, copy=False, index=True,
         tracking=3,
         default='no_mail')
@@ -64,12 +65,12 @@ class direct(models.Model):
 
     product_id = fields.Many2one(
         comodel_name='product.product',
-        string="Product",
-        )
+        string="Ürün",
+    )
 
     yapilan_islem = fields.Many2one('direct.yapilanislem',
-        string="Yapılan İşlem",
-        )
+                                    string="Yapılan İşlem",
+                                    )
 
 
 
@@ -87,18 +88,22 @@ class direct(models.Model):
     def _value_pc(self):
         for record in self:
             record.value2 = float(record.value) / 100
+    @api.depends('musteri', 'musteri_soyisim')
+    def _isim_soyisim(self):
+        for record in self:
+            record.musteri_isim_soyisim = str(record.musteri) + " " + str( record.musteri_soyisim)
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        for vals in vals_list:
-            if 'company_id' in vals:
-                self = self.with_company(vals['company_id'])
-            if vals.get('name', ("New")) == ("New"):
-                seq_date = fields.Datetime.context_timestamp(
-                    self, fields.Datetime.to_datetime(vals['date_order'])
-                ) if 'date_order' in vals else None
-                vals['name'] = self.env['ir.sequence'].next_by_code(
-                    'direct.direct', sequence_date=seq_date) or ("New")
+@api.model_create_multi
+def create(self, vals_list):
+    for vals in vals_list:
+        if 'company_id' in vals:
+            self = self.with_company(vals['company_id'])
+        if vals.get('name', ("New")) == ("New"):
+            seq_date = fields.Datetime.context_timestamp(
+                self, fields.Datetime.to_datetime(vals['date_order'])
+            ) if 'date_order' in vals else None
+            vals['name'] = self.env['ir.sequence'].next_by_code(
+                'direct.direct', sequence_date=seq_date) or ("New")
 
-        return super().create(vals_list)
+    return super().create(vals_list)
 
