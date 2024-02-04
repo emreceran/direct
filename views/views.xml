@@ -6,7 +6,7 @@
         <field name="name">Teknik Servis Talepleri</field>
         <field name="model">direct.direct</field>
         <field name="arch" type="xml">
-            <tree default_order="name desc">
+            <tree default_order="talep_tarih desc">
                 <field name="name" string="Talep Kodu"/>
                 <field name="musteri" optional="hide"/>
                 <field name="musteri_isim_soyisim"/>
@@ -15,7 +15,7 @@
                 <field name="telefon"/>
                 <field name="product_id"/>
 
-                <field name="talep_tarih" optional="hide"/>
+                <field name="talep_tarih" />
                 <field name="ulasma_tarih" optional="hide"/>
                 <field name="kargo_verilme_tarih" optional="hide"/>
                 <field name="mail_durumu"/>
