@@ -102,7 +102,7 @@
             <search string="Search Direct">
 
                 <field name="name" string="Ürün"
-                       filter_domain="['|', '|', '|', '|', '|', ('mail','ilike', self ),('adres','ilike', self ), ('musteri_isim_soyisim','ilike', self ), ('name', 'ilike', self),  ('musteri', 'ilike', self), ('product_id', 'ilike', self)]"/>
+                       filter_domain="['|', '|', '|', '|', '|', '|', ('telefon','ilike', self ), ('mail','ilike', self ),('adres','ilike', self ), ('musteri_isim_soyisim','ilike', self ), ('name', 'ilike', self),  ('musteri', 'ilike', self), ('product_id', 'ilike', self)]"/>
 
                 <field name="name" string="İsim Soyisim"
                        filter_domain="[('musteri', 'ilike', self) ,  ('musteri_soyisim','ilike', self )  ]"/>

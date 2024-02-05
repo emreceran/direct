@@ -93,17 +93,17 @@ class direct(models.Model):
         for record in self:
             record.musteri_isim_soyisim = str(record.musteri) + " " + str( record.musteri_soyisim)
 
-@api.model_create_multi
-def create(self, vals_list):
-    for vals in vals_list:
-        if 'company_id' in vals:
-            self = self.with_company(vals['company_id'])
-        if vals.get('name', ("New")) == ("New"):
-            seq_date = fields.Datetime.context_timestamp(
-                self, fields.Datetime.to_datetime(vals['date_order'])
-            ) if 'date_order' in vals else None
-            vals['name'] = self.env['ir.sequence'].next_by_code(
-                'direct.direct', sequence_date=seq_date) or ("New")
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if 'company_id' in vals:
+                self = self.with_company(vals['company_id'])
+            if vals.get('name', ("New")) == ("New"):
+                seq_date = fields.Datetime.context_timestamp(
+                    self, fields.Datetime.to_datetime(vals['date_order'])
+                ) if 'date_order' in vals else None
+                vals['name'] = self.env['ir.sequence'].next_by_code(
+                    'direct.direct', sequence_date=seq_date) or ("New")
 
-    return super().create(vals_list)
+        return super().create(vals_list)
 
